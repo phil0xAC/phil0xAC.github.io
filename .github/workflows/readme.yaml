@@ -1,0 +1,66 @@
+name: Sync orofile README.md into index.html
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: true
+
+      - name: Fetch README.md and replace index.htmk main contents
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+
+          README_URL = (
+              "https://raw.githubusercontent.com/"
+              "phil0xAC/phil0xAC/refs/heads/master/README.md"
+          )
+
+          index_path = Path("index.html")
+
+          request = Request(README_URL)
+
+          with urlopen(request) as response:
+              readme_md = response.read().decode("utf-8")
+
+          original_html = index_path.read_text()
+
+          parts = original_html.split("main")
+  
+          head, _old_main_contents, footer = parts
+
+          updated_html = (
+              f"{head}"
+              f"{readme_md}\n"
+              f"{footer}"
+          )
+
+          index_path.write_text(updated_html)
+          PY
+
+      - name: Commit and push changes
+        run: |
+          git add index.html
+
+          if git diff --cached --quiet; then
+            echo "index.html is already up to date."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git commit -m "pull latest profike readme"
+          git push
+
