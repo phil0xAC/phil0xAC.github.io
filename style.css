@@ -83,7 +83,7 @@ body {
     */
 
     flex: 0 69px;
-    background: url(img/avatar01.png) bottom right / 69px no-repeat;
+    background: url(gobbo.svg) bottom right / 69px no-repeat;
 
     display: flex;
     flex-direction: column;
