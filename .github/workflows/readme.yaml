@@ -32,7 +32,7 @@ jobs:
           request = Request(README_URL)
 
           with urlopen(request) as response:
-              readme_md = response.read().decode("utf-8")
+              readme_md = response.read().decode("utf-8").strip(" \n")
 
           original_html = index_path.read_text()
 
@@ -42,7 +42,7 @@ jobs:
 
           updated_html = (
               f"{head}"
-              f"{readme_md.rstrip()}\n"
+              f"{readme_md}\n"
               f"{footer}"
           )
 
