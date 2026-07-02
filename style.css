@@ -138,8 +138,12 @@ pre {
   overflow-y: auto;
 }
 
-details summary {
-  cursor: pointer;
+details {
+  padding-left: 1px;
+
+  &> summary {
+    cursor: pointer;
+  }
 }
 
 hr {
