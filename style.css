@@ -139,7 +139,10 @@ pre {
 }
 
 details {
-  border-left: 0.2em solid var(--white);
+  &> ::details-content {
+    border-left: 0.2em solid var(--white);
+    background: red;
+  }
 
   &> summary {
     cursor: pointer;
