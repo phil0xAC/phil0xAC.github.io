@@ -1,4 +1,4 @@
-name: Sync orofile README.md into index.html
+name: Sync profile README.md into index.html
 
 on:
   workflow_dispatch:
