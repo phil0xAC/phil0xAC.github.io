@@ -139,7 +139,7 @@ pre {
 }
 
 details {
-  padding-left: 1px;
+  border-left: 0.2em solid var(--white);
 
   &> summary {
     cursor: pointer;
